@@ -1,0 +1,5 @@
+name: Titanic_ML_Project
+python_env: conda.yaml
+entry_points:
+  main:
+    command: "python modelling.py"

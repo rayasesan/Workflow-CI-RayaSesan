@@ -27,7 +27,7 @@ jobs:
     - name: Train model with MLflow
       run: |
         cd MLProject
-        mlflow run . --experiment-name github-actions-ci
+        mlflow run . --experiment-name github-actions-ci --no-conda
         
     - name: Upload artifacts
       uses: actions/upload-artifact@v4

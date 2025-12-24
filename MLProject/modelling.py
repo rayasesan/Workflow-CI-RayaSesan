@@ -1,15 +1,15 @@
-# modelling.py untuk CI
 import mlflow
 import mlflow.sklearn
 import numpy as np
-import pickle
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 import os
 
-# SET TRACKING URI KE FOLDER LOKAL
-mlflow.set_tracking_uri("file://./mlruns")  
+# SET PATH ABSOLUT KE ./mlruns (folder di MLProject)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+mlruns_path = os.path.join(current_dir, "mlruns")
+mlflow.set_tracking_uri(f"file://{mlruns_path}")
 
 def load_data():
     data_dir = "titanic_preprocessed"
@@ -18,6 +18,9 @@ def load_data():
     return X, y
 
 def main():
+    # BUAT FOLDER mlruns JIKA BELUM ADA
+    os.makedirs(mlruns_path, exist_ok=True)
+    
     mlflow.sklearn.autolog()
     
     X, y = load_data()
@@ -31,9 +34,6 @@ def main():
         
         y_pred = model.predict(X_test)
         accuracy = accuracy_score(y_test, y_pred)
-        
-        mlflow.log_param("n_estimators", 50)
-        mlflow.log_metric("accuracy", accuracy)
         
         print(f"Model trained. Accuracy: {accuracy:.4f}")
 

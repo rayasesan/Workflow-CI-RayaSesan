@@ -1,11 +1,10 @@
-# Workflow-CI/.github/workflows/train_model.yml
 name: Train ML Model
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  workflow_dispatch:  # Manual trigger
+  workflow_dispatch:
 
 jobs:
   train:
@@ -29,14 +28,8 @@ jobs:
         cd MLProject
         mlflow run . --experiment-name github-actions-ci --env-manager local
         
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: mlflow-artifacts
-        path: MLProject/mlruns/
-        
     - name: Upload model metrics
       if: always()
       run: |
         echo "Training completed!"
-        ls -la MLProject/mlruns/
+        echo "MLflow run executed."

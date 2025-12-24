@@ -9,7 +9,7 @@ from sklearn.metrics import accuracy_score
 import os
 
 # SET TRACKING URI KE FOLDER LOKAL
-mlflow.set_tracking_uri("file://./mlruns")  ← TAMBAH LINE INI
+mlflow.set_tracking_uri("file://./mlruns")  
 
 def load_data():
     data_dir = "titanic_preprocessed"
